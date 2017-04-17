@@ -3,10 +3,39 @@ services:
 
   mongo:
     image: mongo
+
+  broker:
+    image: toke/mosquitto
   
-  nodered:
+  nodered1880:
     build: .
+    depends_on: 
+      - mongo
+      - broker
     ports:
-      - 1880:1880
+      - "1880:1880"
     links:
       - mongo:mongo
+      - broker:broker
+
+  nodered1881:
+    build: .
+    depends_on: 
+      - mongo
+      - broker
+    ports:
+      - "1881:1880"
+    links:
+      - mongo:mongo
+      - broker:broker
+
+  nodered1882:
+    build: .
+    depends_on: 
+      - mongo
+      - broker
+    ports:
+      - "1882:1880"
+    links:
+      - mongo:mongo
+      - broker:broker
